@@ -5,6 +5,7 @@
 	bl	= blame
 	bw	= "!f() { git blame -w --ignore-all-space --ignore-blank-lines $*; }; f"
 	co	= checkout
+	com	= checkout --merge
 	cou	= "!f() { git checkout $* && git up; }; f"
 	cof	= "!f() { git checkout --force $*; }; f"
 	ci	= commit
