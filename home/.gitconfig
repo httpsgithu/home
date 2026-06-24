@@ -9,7 +9,7 @@
 	cou	= "!f() { git checkout $* && git up; }; f"
 	cof	= "!f() { git checkout --force $*; }; f"
 	ci	= commit
-	cl	= "!f() { git clone --recursive $*; }; f"
+	cl	= "!f() { git clone --recurse-submodules $*; }; f"
 	cp	= cherry-pick
 	cpa	= !(git cherry-pick --abort)
 	cpc	= !(git cherry-pick --continue)
@@ -54,9 +54,9 @@
 	st	= status
 	s	= status
 	su	= "!f() { git branch --set-upstream-to=origin/$1 $1; }; f"
-	sub	= !(git submodule update --init --recursive)
+	sub	= !(git submodule update --init --recursive --jobs 16)
 	ss	= !(git submodule sync)
-	sss	= "!f() { git submodule sync; git submodule update --init --recursive; }; f"
+	sss	= "!f() { git submodule sync; git submodule update --init --recursive --jobs 16; }; f"
 	sm      = "!f() { name=$1; shift; git checkout -b users/${USER}/$name; [ -z "$*" ] || git add $*; git ci -m "${name}" $*; git push; }; f"
 	t	= tag
 	#up	= !(git pull || ((git stash && git pull --rebase >&2) | grep -v "No local changes to save" && git stash pop))
@@ -94,6 +94,9 @@
 [rebase]
 	autostash = true
 [submodule]
+	fetchJobs = 16
 #    recurse = true
 [protocol]
 	version = 2
+[fetch]
+	recurseSubmodules = yes

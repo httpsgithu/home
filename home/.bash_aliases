@@ -47,6 +47,9 @@ kd() { KDevelop.AppImage $* > /dev/null 2>&1 < /dev/null & }
 cf() { cmd=`bash -c "compgen -c clang-format | grep 'clang-format-[[:digit:]]' | sort --version-sort --reverse | head -n1"`; $cmd -i $*; }
 cmcc() { cmake -DCMAKE_C_COMPILER_LAUNCHER=`which ccache` -DCMAKE_CXX_COMPILER_LAUNCHER=`which ccache` $*; }
 
+kst() { kubectl -n nbs exec -it $* -- tmux $tmux_opt new-session -A -s 0 ; }
+ksh() { kubectl -n nbs exec -it $* -- bash ; }
+kl() { kubectl -n nbs logs $* ; }
 
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=100000                   # big big history
